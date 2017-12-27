@@ -99,7 +99,7 @@ fi
 
 # read domains from file 
 while IFS= read -r LINE; do
-
+  echo $LINE
 done < "$LIST_OF_DOMAINS"
 
 
