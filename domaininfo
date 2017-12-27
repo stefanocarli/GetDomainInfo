@@ -25,8 +25,7 @@ graceful_exit() {
 }
 
 usage() {
-  echo -e "Usage: $PROGNAME [-h|--help] [-d|--debug] [-f|--file filename] [-s|--server stype] [-l|--location directory] 
-                [-e|--expires days] [-r|--renew] [-u|--update] [-U|--nocheck] [-c|--command command] [domain]"
+  echo -e "Usage: $PROGNAME [-h|--help] [-d|--domain] [-f|--file filename]"
 }
 
 _requires() {
