@@ -92,6 +92,7 @@ fi
 LIST_OF_DOMAINS=$(mktemp)
 DATA_OUT=$(mktemp)
 debug "created tmp files for input (${LIST_OF_DOMAINS}) and output (${DATA_OUT})"
+echo "Domain|port|cert issued for|valid until|cert issued by|  possible issues?" > "$DATA_OUT"
 
 # use name name from command line if specified
 if [ $DOMAINARG ]; then
