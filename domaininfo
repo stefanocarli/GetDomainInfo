@@ -88,6 +88,11 @@ if [[ ! $FILEARG && ! $DOMAINARG ]]; then
   graceful_exit
 fi
 
+# create temporary file for the list of domains, and output
+LIST_OF_DOMAINS=$(mktemp)
+DATA_OUT=$(mktemp)
+debug "created tmp files for input (${LIST_OF_DOMAINS}) and output (${DATA_OUT})"
+
 # use name name from command line if specified
 if [ $DOMAINARG ]; then
     echo "$DNAME" >> "$LIST_OF_DOMAINS"
