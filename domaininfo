@@ -1,0 +1,106 @@
+#!/usr/bin/env bash
+# ---------------------------------------------------------------------------
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 2 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License at <http://www.gnu.org/licenses/> for
+# more details.
+
+# Usage: domaininfo [-h|--help] [-d|--debug] [-f|--file filename] [-s|--server stype] [-l|--location] [-e:--expires days] [-r:--renew] [-c:--command command] [domain]
+
+# Revision history:
+# 2017-12-27 Created (v0.1)
+
+PROGNAME=${0##*/}
+VERSION="0.1"
+
+graceful_exit() {
+  exit
+}
+
+usage() {
+  echo -e "Usage: $PROGNAME [-h|--help] [-d|--debug] [-f|--file filename] [-s|--server stype] [-l|--location directory] 
+                [-e|--expires days] [-r|--renew] [-u|--update] [-U|--nocheck] [-c|--command command] [domain]"
+}
+
+_requires() {
+  result=$(which "$1" 2>/dev/null)
+  debug "checking for required $1 ... $result"
+  if [ -z "$result" ]; then
+    error_exit "This script requires $1 installed"
+  fi
+}
+
+
+help_message() {
+  cat <<- _EOF_
+	$PROGNAME ver. $VERSION
+	Checks ssl certs for a set of domains
+	$(usage)
+	Options:
+	  -h, --help      Display this help message and exit.
+	  -d, --domain    Single domain
+	  -f, --file  filename
+	                  Where 'filename' is a file containing a list of domain names
+	_EOF_
+  return
+}
+
+# Parse command-line
+while [[ -n $1 ]]; do
+  case $1 in
+    -h | --help)
+      help_message;;
+    -d | --domain)
+     DOMAINARG="$1" ;;
+    -f | --file)
+      FILEARG=true; shift; FILE="$1" ;;
+    -* | --*)
+      usage
+      error_exit "Unknown option $1" ;;
+  esac
+  shift
+done
+
+# Main logic
+
+#check if required applications are included
+
+_requires gobuster
+
+if [[ ! $FILEARG && ! $DOMAINARG ]]; then
+  help_message
+  graceful_exit
+fi
+
+# use name name from command line if specified
+if [ $DOMAINARG ]; then
+    echo "$DNAME" >> "$LIST_OF_DOMAINS"
+    debug "added $DNAME to list of domains"
+fi
+
+
+# check and import file if specified on command line
+if [ $FILEARG ]; then
+  if [ -f "$FILE" ]; then
+    grep -v '^#' "$FILE" >> "$LIST_OF_DOMAINS"
+    debug "added file $FILE to list of domains"
+  else
+    echo "$FILE not found"
+    graceful_exit
+  fi
+fi
+
+# read domains from file 
+while IFS= read -r LINE; do
+
+done < "$LIST_OF_DOMAINS"
+
+
+graceful_exit
