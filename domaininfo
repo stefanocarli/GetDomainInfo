@@ -24,6 +24,11 @@ graceful_exit() {
   exit
 }
 
+error_exit() {
+  echo -e "${PROGNAME}: ${1:-"Unknown Error"}" >&2
+  exit 1
+}
+
 usage() {
   echo -e "Usage: $PROGNAME [-h|--help] [-d|--domain] [-f|--file filename]"
 }
@@ -36,6 +41,11 @@ _requires() {
   fi
 }
 
+debug() {
+  if [[ "${_USE_DEBUG:-"0"}" -eq 1 ]]; then
+    echo "$@"
+  fi
+}
 
 help_message() {
   cat <<- _EOF_
