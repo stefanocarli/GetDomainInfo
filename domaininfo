@@ -67,7 +67,7 @@ while [[ -n $1 ]]; do
     -h | --help)
       help_message;;
     -d | --domain)
-     DOMAINARG="$1" ;;
+     DOMAINARG=true; shift; DNAME="$1" ;;
     -f | --file)
       FILEARG=true; shift; FILE="$1" ;;
     -* | --*)
