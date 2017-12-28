@@ -82,6 +82,7 @@ done
 #check if required applications are included
 
 _requires gobuster
+_requires dnsmap
 
 if [[ ! $FILEARG && ! $DOMAINARG ]]; then
   help_message
@@ -114,7 +115,8 @@ fi
 
 # read domains from file 
 while IFS= read -r LINE; do
-  echo $LINE
+  #echo $LINE
+  dnsmap $LINE
 done < "$LIST_OF_DOMAINS"
 
 
