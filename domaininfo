@@ -116,6 +116,7 @@ fi
 # read domains from file 
 while IFS= read -r LINE; do
   #echo $LINE
+  debug "Starting dnsmap on domain (${LINE})"
   dnsmap $LINE
 done < "$LIST_OF_DOMAINS"
 
