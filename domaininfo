@@ -55,7 +55,7 @@ gist_clone()
   debug "* cloning Gist from $URL"
 
   CMD="git clone $URL wordlist_domain"
-
+  echo {$CMD}
   $CMD
 }
 
