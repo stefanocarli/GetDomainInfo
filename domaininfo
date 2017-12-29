@@ -47,6 +47,18 @@ debug() {
   fi
 }
 
+gist_clone()
+{
+  GIST="3d0debd0292467de75beb20d98a27f25"
+  URL="git@gist.github.com:{$GIST}.git"
+
+  debug "* cloning Gist from $URL"
+
+  CMD="git clone $URL wordlist_domain"
+
+  $CMD
+}
+
 help_message() {
   cat <<- _EOF_
 	$PROGNAME ver. $VERSION
@@ -88,6 +100,9 @@ if [[ ! $FILEARG && ! $DOMAINARG ]]; then
   help_message
   graceful_exit
 fi
+
+#Clone gist all.txt
+gist_clone
 
 # create temporary file for the list of domains, and output
 LIST_OF_DOMAINS=$(mktemp)
