@@ -12,7 +12,7 @@
 # GNU General Public License at <http://www.gnu.org/licenses/> for
 # more details.
 
-# Usage: domaininfo [-h|--help] [-d|--debug] [-f|--file filename] [-s|--server stype] [-l|--location] [-e:--expires days] [-r:--renew] [-c:--command command] [domain]
+# Usage: domaininfo [-h|--help] [-d|--debug] [-f|--file filename] [domain]
 
 # Revision history:
 # 2017-12-27 Created (v0.1)
